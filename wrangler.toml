@@ -1,0 +1,12 @@
+name = "mohammad-raihan-portfolio"
+pages_build_output_dir = "public"
+compatibility_date = "2026-11-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "raihan_portfolio_db"
+database_id = "212050f4-a269-4c14-a6d2-9b3f21431902"
+
+[vars]
+CLOUDINARY_CLOUD_NAME = "dbkmg0oia"
+ADMIN_EMAIL = "mohammadraihan4386@gmail.com"
