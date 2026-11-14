@@ -1348,8 +1348,33 @@
       syncWithCloudflareD1Api();
     }
 
-    function syncWithCloudflareD1Api() {
-      // Syncs state locally in preview; Cloudflare Pages Functions D1 endpoint included in deployment bundle
+    async function syncWithCloudflareD1Api() {
+      try {
+        await fetch('/api/portfolio', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(appState)
+        });
+      } catch (err) {
+        // Offline / preview fallback
+      }
+    }
+
+    async function fetchCloudflareD1StateOnBoot() {
+      try {
+        const res = await fetch('/api/portfolio');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.projects && data.hero) {
+            appState = data;
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(appState)); } catch (e) {}
+            renderPublicSite();
+            if (isAdminLoggedIn) populateAdminDashboardFields();
+          }
+        }
+      } catch (err) {
+        // Uses local state if /api/portfolio is not reachable
+      }
     }
 
     function showToast(message, type) {
@@ -2568,6 +2593,7 @@
       loadAppState();
       renderPublicSite();
       initAvatarCanvasEngine();
+      fetchCloudflareD1StateOnBoot();
       if (window.location.hash === '#/admin' || window.location.pathname === '/admin') {
         switchView('admin');
       }
