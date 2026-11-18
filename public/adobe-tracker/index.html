@@ -242,6 +242,7 @@
           <button type="button" onclick="scrollToSection('section-hero')" class="hover:text-[#FF4D24] transition">Showcase</button>
           <button type="button" onclick="scrollToSection('section-disciplines')" class="hover:text-[#FF4D24] transition">Disciplines</button>
           <button type="button" onclick="scrollToSection('section-works')" class="hover:text-[#FF4D24] transition">Works</button>
+          <button type="button" onclick="navigateRoute('/gallery')" class="hover:text-[#FF4D24] transition">Gallery</button>
           <button type="button" onclick="scrollToSection('section-about')" class="hover:text-[#FF4D24] transition">About</button>
           <button type="button" onclick="scrollToSection('section-journey')" class="hover:text-[#FF4D24] transition">Journey</button>
           <button type="button" onclick="scrollToSection('section-explore')" class="hover:text-[#FF4D24] transition">Explore</button>
@@ -273,6 +274,7 @@
       <button type="button" onclick="scrollToSection('section-hero'); toggleMobileMenu();" class="px-3 py-1.5 rounded hairline-box">Showcase</button>
       <button type="button" onclick="scrollToSection('section-disciplines'); toggleMobileMenu();" class="px-3 py-1.5 rounded hairline-box">Disciplines</button>
       <button type="button" onclick="scrollToSection('section-works'); toggleMobileMenu();" class="px-3 py-1.5 rounded hairline-box">Works</button>
+      <button type="button" onclick="navigateRoute('/gallery'); toggleMobileMenu();" class="px-3 py-1.5 rounded hairline-box">Gallery (/gallery)</button>
       <button type="button" onclick="scrollToSection('section-about'); toggleMobileMenu();" class="px-3 py-1.5 rounded hairline-box">About</button>
       <button type="button" onclick="scrollToSection('section-journey'); toggleMobileMenu();" class="px-3 py-1.5 rounded hairline-box">Journey</button>
       <button type="button" onclick="scrollToSection('section-explore'); toggleMobileMenu();" class="px-3 py-1.5 rounded hairline-box">Explore</button>
@@ -474,8 +476,14 @@
               Brand Marks, Posters, 3D &amp; Key Art
             </h2>
           </div>
-          <div id="galleryFilterTabs" class="flex flex-wrap items-center gap-1.5">
-            <!-- Populated by JS -->
+          <div class="flex flex-wrap items-center gap-2">
+            <div id="galleryFilterTabs" class="flex flex-wrap items-center gap-1.5">
+              <!-- Populated by JS -->
+            </div>
+            <button type="button" onclick="navigateRoute('/gallery')" class="px-3.5 py-1.5 rounded-xl bg-[var(--ink)] text-[var(--paper)] font-mono text-xs hover:bg-[#FF4D24] hover:text-white transition inline-flex items-center gap-1.5">
+              <span>Full /gallery Page</span>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
           </div>
         </div>
 
@@ -669,6 +677,20 @@
   </section>
 
   <!-- =================================================================== -->
+  <!-- VIEW 3: DEDICATED CASE STUDY ROUTE VIEW (/work/{slug})              -->
+  <!-- =================================================================== -->
+  <section id="workDetailView" class="hidden relative z-20 min-h-screen px-4 sm:px-8 lg:px-12 py-10 pb-24">
+    <div id="workDetailWorkspace" class="max-w-[1440px] mx-auto space-y-8"></div>
+  </section>
+
+  <!-- =================================================================== -->
+  <!-- VIEW 4: DEDICATED GALLERY ROUTE VIEW (/gallery)                     -->
+  <!-- =================================================================== -->
+  <section id="galleryRouteView" class="hidden relative z-20 min-h-screen px-4 sm:px-8 lg:px-12 py-10 pb-24">
+    <div id="galleryRouteWorkspace" class="max-w-[1440px] mx-auto space-y-8"></div>
+  </section>
+
+  <!-- =================================================================== -->
   <!-- PROJECT DETAIL LIGHTBOX MODAL (When clicking any 3D Card or Work)   -->
   <!-- =================================================================== -->
   <div id="projectDetailModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
@@ -705,6 +727,14 @@
     <div class="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
       <div class="flex items-center gap-3 pointer-events-auto">
         <span id="scrollYReadout" class="font-semibold text-[var(--ink)]">Y 0000</span>
+        <span class="opacity-40">|</span>
+        <span id="activeRouteIndicator" class="text-[#FF4D24] font-semibold">/</span>
+        <div class="hidden md:flex items-center gap-2 pl-2">
+          <button type="button" onclick="navigateRoute('/')" class="hover:text-[#FF4D24] transition">/</button>
+          <button type="button" onclick="navigateRoute('/work/monolith-brand')" class="hover:text-[#FF4D24] transition">/work/monolith-brand</button>
+          <button type="button" onclick="navigateRoute('/gallery')" class="hover:text-[#FF4D24] transition">/gallery</button>
+          <button type="button" onclick="navigateRoute('/tool/adobe-tracker')" class="hover:text-[#FF4D24] transition">/tool/adobe-tracker</button>
+        </div>
       </div>
       <div class="grid grid-cols-12 gap-2 sm:gap-4 text-center opacity-70">
         <span>01</span><span>02</span><span>03</span><span>04</span>
@@ -961,6 +991,7 @@
         {
           id: "case-1",
           index: "01",
+          slug: "/work/monolith-brand",
           title: "Monolith Architectural Identity",
           tagline: "A tactile brand and packaging system designed to feel as solid at three metres as at three centimetres.",
           summary: "Built around a 12-column Swiss typographic grid with blind debossing on 600gsm cotton paper, custom brass hardware accents, and complete print production files.",
@@ -975,6 +1006,7 @@
         {
           id: "case-2",
           index: "02",
+          slug: "/work/swiss-exhibition",
           title: "Swiss Exhibition & Key Visual System",
           tagline: "Bold constructivist poster architecture paired with kinetic digital campaign assets.",
           summary: "Developed a modular visual language combining primarybauhaus color accents with strict typographic hierarchy across 24 print and outdoor formats.",
@@ -989,6 +1021,7 @@
         {
           id: "case-3",
           index: "03",
+          slug: "/work/tactile-form-3d",
           title: "Tactile Form — 3D Commercial Design Pack",
           tagline: "Over 120 bespoke 3D sculptural renders, glassmorphic primitives, and architectural shadow backdrops.",
           summary: "Created for design studios and creative directors seeking museum-grade 3D elements ready for immediate compositing in Photoshop and After Effects.",
@@ -1003,6 +1036,7 @@
         {
           id: "case-4",
           index: "04",
+          slug: "/work/pulse-motion",
           title: "Pulse Motion — High-Retention Video Suite",
           tagline: "Dynamic commercial editing, custom SFX layering, and cinematic color grading for global creators.",
           summary: "Engineered a signature visual pacing system combining 3D camera transitions, bespoke kinetic subtitles, and analog film emulation.",
@@ -1136,7 +1170,7 @@
         {
           id: "tool-1",
           name: "Adobe Stock & Microstock Tracker",
-          slug: "/adobe-tracker",
+          slug: "/tool/adobe-tracker",
           category: "Contributor Utility",
           status: "LIVE TOOL",
           accent: "#FF4D24",
@@ -1146,7 +1180,7 @@
         {
           id: "tool-2",
           name: "PurePixel Forensic Utility",
-          slug: "/purepixel-ai",
+          slug: "/tool/purepixel-ai",
           category: "Image Utility",
           status: "LIVE TOOL",
           accent: "#0ea5e9",
@@ -1156,7 +1190,7 @@
         {
           id: "tool-3",
           name: "RankFlow 9:16 Previewer",
-          slug: "/rankflow-studio",
+          slug: "/tool/rankflow-studio",
           category: "Motion Utility",
           status: "LIVE TOOL",
           accent: "#6366f1",
@@ -1166,7 +1200,7 @@
         {
           id: "tool-4",
           name: "Stock Metadata Assistant",
-          slug: "/magnific-meta-pro",
+          slug: "/tool/magnific-meta-pro",
           category: "Workflow Extension",
           status: "v3.0",
           accent: "#10b981",
@@ -1183,7 +1217,7 @@
 
     // Runtime State
     let siteData = JSON.parse(JSON.stringify(DEFAULT_SITE_DATA));
-    let currentRoute = "/adobe-tracker";
+    let currentRoute = "/tool/adobe-tracker";
     let activeHeroCategory = "All";
     let activeGalleryCategory = "All";
     let isAdminAuthenticated = false;
@@ -1205,7 +1239,7 @@
           siteData.settings = Object.assign({}, DEFAULT_SITE_DATA.settings, parsed.settings || {});
         }
       } catch (e) {}
-      if (window.location.hostname.endsWith(".pages.dev") && window.__CF_D1_SYNC) {
+      if ((window.location.hostname.endsWith(".pages.dev") || window.location.hostname.endsWith(".workers.dev")) && window.__CF_D1_SYNC) {
         window.__CF_D1_SYNC("GET");
       }
     }
@@ -1220,7 +1254,7 @@
 
     async function syncStateToCloudflareD1() {
       saveSiteState();
-      if (window.location.hostname.endsWith(".pages.dev") && window.__CF_D1_SYNC) {
+      if ((window.location.hostname.endsWith(".pages.dev") || window.location.hostname.endsWith(".workers.dev")) && window.__CF_D1_SYNC) {
         await window.__CF_D1_SYNC("POST", siteData);
         return;
       }
@@ -1556,17 +1590,17 @@
               <div class="pt-3 flex items-center gap-3">
                 <button
                   type="button"
-                  onclick="openCaseStudyModal(${idx})"
+                  onclick="navigateRoute('${escapeAttr(cs.slug || '/work/case-' + (idx + 1))}')"
                   class="px-5 py-2.5 rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition inline-flex items-center gap-2"
                   style="background:${escapeAttr(cs.accentTone || "#FF4D24")}; color:#0E1013;"
                 >
-                  <span>View Case Study</span>
+                  <span>Open ${escapeHtml(cs.slug || '/work/case-' + (idx + 1))}</span>
                   <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </button>
               </div>
             </div>
             <div class="lg:col-span-7">
-              <div onclick="openCaseStudyModal(${idx})" class="cursor-pointer rounded-2xl overflow-hidden aspect-[16/10] bg-black/20 shadow-lg">
+              <div onclick="navigateRoute('${escapeAttr(cs.slug || '/work/case-' + (idx + 1))}')" class="cursor-pointer rounded-2xl overflow-hidden aspect-[16/10] bg-black/20 shadow-lg">
                 <img src="${escapeAttr(cs.image)}" alt="${escapeAttr(cs.title)}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
               </div>
             </div>
@@ -1912,35 +1946,212 @@
     }
 
     // =========================================================================
-    // SUB-PATH ROUTER (/ vs /adobe-tracker vs custom tools)
+    // MULTI-ROUTE ENGINE (/, /admin, /tool/{name}, /work/{slug}, /gallery)
     // =========================================================================
-    function navigateRoute(path) {
+    function navigateRoute(path, skipPush) {
       currentRoute = path || "/";
+      setText("activeRouteIndicator", currentRoute);
+
+      if (!skipPush) {
+        try {
+          if (window.location.protocol.startsWith("http")) {
+            window.history.pushState({ route: currentRoute }, "", currentRoute);
+          }
+        } catch (e) {}
+      }
+
       const mainView = document.getElementById("mainPortfolioView");
       const subView = document.getElementById("subpathToolView");
+      const workView = document.getElementById("workDetailView");
+      const galView = document.getElementById("galleryRouteView");
+
+      mainView.classList.add("hidden");
+      subView.classList.add("hidden");
+      if (workView) workView.classList.add("hidden");
+      if (galView) galView.classList.add("hidden");
 
       if (currentRoute === "/" || currentRoute === "") {
         mainView.classList.remove("hidden");
-        subView.classList.add("hidden");
         window.scrollTo({ top: 0, behavior: "smooth" });
         return;
       }
 
       if (currentRoute === "/admin") {
+        mainView.classList.remove("hidden");
         openAdminTrigger();
         return;
       }
 
-      mainView.classList.add("hidden");
+      if (currentRoute === "/gallery" || currentRoute.startsWith("/gallery/")) {
+        if (galView) {
+          galView.classList.remove("hidden");
+          const subCat = currentRoute.replace(/^\/gallery\/?/, "");
+          renderGalleryRouteView(subCat ? decodeURIComponent(subCat) : "All");
+        }
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
+      if (currentRoute === "/work" || currentRoute.startsWith("/work/")) {
+        if (workView) {
+          workView.classList.remove("hidden");
+          renderWorkDetailView(currentRoute);
+        }
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
+      // Otherwise treat as /tool/{name}, /tools/{name}, or /{tool-slug}
       subView.classList.remove("hidden");
       renderSubpathToolWorkspace(currentRoute);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
+    function renderWorkDetailView(routePath) {
+      const ws = document.getElementById("workDetailWorkspace");
+      if (!ws) return;
+      const cleanSlug = routePath.replace(/^\/work\/?/, "").toLowerCase();
+      const cs =
+        siteData.caseStudies.find((c, i) => {
+          const s1 = String(c.slug || "/work/case-" + (i + 1)).replace(/^\/work\/?/, "").toLowerCase();
+          const s2 = String(c.title || "").toLowerCase().replace(/[^a-z0-9]+/g, "-");
+          return s1 === cleanSlug || s2.includes(cleanSlug) || c.slug === routePath;
+        }) || siteData.caseStudies[0];
+
+      if (!cs) return;
+
+      ws.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl hairline-box bg-[var(--paper-elevated)]/80 backdrop-blur-md">
+          <div class="flex items-center gap-3">
+            <button type="button" onclick="navigateRoute('/')" class="px-3.5 py-2 rounded-xl bg-[var(--ink)] text-[var(--paper)] font-mono text-xs uppercase tracking-wider hover:bg-[#FF4D24] hover:text-white transition inline-flex items-center gap-1.5">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              <span>Back to Portfolio</span>
+            </button>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-display font-bold text-lg sm:text-xl">${escapeHtml(cs.title)}</span>
+                <span class="px-2 py-0.5 rounded bg-[#FF4D24]/15 text-[#FF4D24] font-mono text-xs">${escapeHtml(cs.slug || routePath)}</span>
+              </div>
+              <p class="text-xs text-[var(--ink-muted)]">${escapeHtml(cs.client)} · ${escapeHtml(cs.year)}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-3xl p-6 sm:p-12 space-y-8 shadow-2xl" style="background:${escapeAttr(cs.bgTone || '#1E1916')}; color:${escapeAttr(cs.textTone || '#F7EFEA')}">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+            <div class="lg:col-span-8 space-y-4">
+              <div class="inline-flex items-center gap-3 font-mono text-xs opacity-80">
+                <span class="px-2.5 py-1 rounded border border-current">CASE STUDY ${escapeHtml(cs.index || '01')}</span>
+                <span>${escapeHtml(cs.client)} · ${escapeHtml(cs.year)}</span>
+              </div>
+              <h1 class="editorial-headline text-4xl sm:text-6xl leading-none">${escapeHtml(cs.title)}</h1>
+              <p class="editorial-serif-italic text-2xl sm:text-4xl opacity-95">${escapeHtml(cs.tagline)}</p>
+            </div>
+            <div class="lg:col-span-4 space-y-2 font-mono text-xs opacity-85 border-t lg:border-t-0 lg:border-l border-current/20 pt-4 lg:pt-0 lg:pl-6">
+              <div class="uppercase opacity-60">Deliverables</div>
+              <div class="text-sm font-semibold">${escapeHtml(cs.deliverables)}</div>
+              <div class="pt-2 uppercase opacity-60">Direct Route</div>
+              <div>${escapeHtml(cs.slug || routePath)}</div>
+            </div>
+          </div>
+
+          <div class="rounded-2xl overflow-hidden aspect-[16/9] bg-black/30 border border-white/10 shadow-xl">
+            <img src="${escapeAttr(cs.image)}" alt="${escapeAttr(cs.title)}" class="w-full h-full object-cover" />
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+            <div class="space-y-2">
+              <h3 class="font-mono text-xs uppercase tracking-widest opacity-70">01 / Creative Direction &amp; Execution</h3>
+              <p class="text-sm sm:text-base leading-relaxed opacity-90">${escapeHtml(cs.summary)}</p>
+            </div>
+            <div class="space-y-3">
+              <h3 class="font-mono text-xs uppercase tracking-widest opacity-70">02 / Switch Case Study (/work/{slug})</h3>
+              <div class="flex flex-wrap gap-2">
+                ${siteData.caseStudies
+                  .map(
+                    (other, i) => `
+                  <button type="button" onclick="navigateRoute('${escapeAttr(other.slug || '/work/case-' + (i + 1))}')" class="px-4 py-2 rounded-xl border border-current/25 font-mono text-xs hover:bg-white/10 transition">
+                    ${escapeHtml(other.title)} →
+                  </button>
+                `
+                  )
+                  .join("")}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderGalleryRouteView(selectedCat) {
+      const ws = document.getElementById("galleryRouteWorkspace");
+      if (!ws) return;
+      const cats = ["All", ...new Set(siteData.mediaGallery.map(m => m.category || "Design"))];
+      const activeCat = cats.find(c => c.toLowerCase() === String(selectedCat || "All").toLowerCase()) || "All";
+      const items = activeCat === "All" ? siteData.mediaGallery : siteData.mediaGallery.filter(m => m.category === activeCat);
+
+      ws.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl hairline-box bg-[var(--paper-elevated)]/80 backdrop-blur-md">
+          <div class="flex items-center gap-3">
+            <button type="button" onclick="navigateRoute('/')" class="px-3.5 py-2 rounded-xl bg-[var(--ink)] text-[var(--paper)] font-mono text-xs uppercase tracking-wider hover:bg-[#FF4D24] hover:text-white transition inline-flex items-center gap-1.5">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              <span>Back to Portfolio</span>
+            </button>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="editorial-headline text-xl sm:text-2xl">Curated Visual Archive</span>
+                <span class="px-2 py-0.5 rounded bg-[#FF4D24]/15 text-[#FF4D24] font-mono text-xs">${escapeHtml(currentRoute)}</span>
+              </div>
+              <p class="text-xs text-[var(--ink-muted)]">Synced with Cloudinary (${escapeHtml(siteData.settings.cloudinaryCloudName)}) · ${items.length} Works</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-1.5">
+            ${cats
+              .map(
+                c => `
+              <button type="button" onclick="navigateRoute('${c === 'All' ? '/gallery' : '/gallery/' + encodeURIComponent(c)}')" class="px-3.5 py-1.5 rounded-xl font-mono text-xs transition ${
+                  c === activeCat ? 'bg-[#FF4D24] text-white' : 'hairline-box bg-[var(--paper)] hover:border-[#FF4D24]'
+                }">${escapeHtml(c)}</button>
+            `
+              )
+              .join("")}
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          ${items
+            .map(
+              (item, idx) => `
+            <div onclick="openGalleryItemModal(${idx})" class="cursor-pointer group rounded-2xl hairline-box bg-[var(--paper)] overflow-hidden shadow-sm flex flex-col justify-between hover:border-[#FF4D24] transition">
+              <div class="aspect-[4/3] overflow-hidden bg-black/10 relative">
+                <img src="${escapeAttr(item.url)}" alt="${escapeAttr(item.title)}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/70 text-white font-mono text-[10px]">
+                  ${escapeHtml(item.category)}
+                </span>
+              </div>
+              <div class="p-4 flex items-center justify-between gap-2">
+                <div class="min-w-0">
+                  <h3 class="font-display font-bold text-base truncate group-hover:text-[#FF4D24] transition">${escapeHtml(item.title)}</h3>
+                  <div class="font-mono text-[11px] text-[var(--ink-muted)] truncate">${escapeHtml(item.category)}</div>
+                </div>
+                <svg class="w-4 h-4 text-[var(--ink-muted)] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </div>
+            </div>
+          `
+            )
+            .join("")}
+        </div>
+      `;
+    }
+
     function renderSubpathToolWorkspace(slug) {
+      const baseSlug = slug.replace(/^\/tools?\//, "/");
       const tool =
-        siteData.toolsList.find(t => (t.slug.startsWith("/") ? t.slug : "/" + t.slug) === slug) || {
-          name: slug.replace("/", "").toUpperCase(),
+        siteData.toolsList.find(t => {
+          const ts = t.slug.startsWith("/") ? t.slug : "/" + t.slug;
+          return ts === slug || ts.replace(/^\/tools?\//, "/") === baseSlug;
+        }) || {
+          name: baseSlug.replace("/", "").toUpperCase(),
           slug: slug,
           category: "Sub-path Utility",
           description: "Hosted under mrraihan.pages.dev" + slug,
@@ -1954,7 +2165,7 @@
       const ws = document.getElementById("subpathToolWorkspace");
       if (!ws) return;
 
-      if (slug === "/adobe-tracker") {
+      if (slug === "/adobe-tracker" || slug === "/tool/adobe-tracker" || slug === "/tools/adobe-tracker") {
         const entries = siteData.adobeTrackerEntries || [];
         const totalUploaded = entries.reduce((acc, x) => acc + (Number(x.uploaded) || 0), 0);
         const totalApproved = entries.reduce((acc, x) => acc + (Number(x.approved) || 0), 0);
@@ -2063,13 +2274,13 @@
         status: "Approved"
       });
       saveSiteState("Added batch to /adobe-tracker");
-      renderSubpathToolWorkspace("/adobe-tracker");
+      renderSubpathToolWorkspace(currentRoute);
     }
 
     function deleteAdobeTrackerBatch(idx) {
       siteData.adobeTrackerEntries.splice(idx, 1);
       saveSiteState("Removed batch");
-      renderSubpathToolWorkspace("/adobe-tracker");
+      renderSubpathToolWorkspace(currentRoute);
     }
 
     // =========================================================================
@@ -2428,6 +2639,10 @@
                     <input type="text" value="${escapeAttr(cs.title)}" oninput="siteData.caseStudies[${idx}].title = this.value; saveSiteState();" class="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/15 text-sm text-white" />
                   </div>
                   <div>
+                    <label class="block font-mono text-[11px] text-white/60 mb-1">Route (/work/{slug})</label>
+                    <input type="text" value="${escapeAttr(cs.slug || '/work/case-' + (idx + 1))}" oninput="siteData.caseStudies[${idx}].slug = this.value; saveSiteState();" class="w-full px-3 py-2 rounded-lg bg-black/40 border border-sky-500/40 text-sm text-sky-300 font-mono" />
+                  </div>
+                  <div>
                     <label class="block font-mono text-[11px] text-white/60 mb-1">Brand Surface Hex</label>
                     <input type="text" value="${escapeAttr(cs.bgTone)}" oninput="siteData.caseStudies[${idx}].bgTone = this.value; saveSiteState();" class="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/15 text-sm text-white font-mono" />
                   </div>
@@ -2463,6 +2678,7 @@
       siteData.caseStudies.push({
         id: "case-" + Date.now(),
         index: "0" + n,
+        slug: "/work/case-" + n,
         title: "New Brand Identity Case Study",
         tagline: "A visual system painted in its own distinct brand tone.",
         summary: "Complete brand architecture, packaging, and campaign assets.",
@@ -2891,7 +3107,7 @@
       siteData.toolsList.push({
         id: "tool-" + Date.now(),
         name: "Personal Utility #" + n,
-        slug: "/tool-" + n,
+        slug: "/tool/utility-" + n,
         category: "Creative Utility",
         status: "LIVE TOOL",
         accent: "#FF4D24",
@@ -2948,13 +3164,23 @@
     window.onload = function() {
       loadSiteState();
       renderEntireSite();
-      navigateRoute("/adobe-tracker");
       updateClockAndScroll();
       setInterval(updateClockAndScroll, 15000);
+      window.addEventListener("popstate", function() {
+        const p = window.location.pathname || "/";
+        navigateRoute(p, true);
+      });
       if (window.location.hash === "#/admin") {
         openAdminTrigger();
       } else if (window.location.hash.startsWith("#/")) {
-        navigateRoute(window.location.hash.slice(1));
+        navigateRoute(window.location.hash.slice(1), true);
+      } else {
+        try {
+          const p = window.location.pathname;
+          if (p && p !== "/" && !p.endsWith(".html")) {
+            navigateRoute(p, true);
+          }
+        } catch (e) {}
       }
     };
   </script>
@@ -2973,7 +3199,7 @@ window.__CF_D1_SYNC = async function(method, payload) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-      if (r.ok) showToast("Synced globally to Cloudflare D1 (raihan_portfolio_db)");
+      if (r.ok) showToast("Synced globally to Cloudflare D1 (raihan_portfolio_db)!");
     }
   } catch (e) { console.warn(e); }
 };

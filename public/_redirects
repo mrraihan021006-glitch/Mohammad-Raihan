@@ -1,2 +1,7 @@
 /admin /index.html 200
-/adobe-tracker/* /adobe-tracker/index.html 200
+/tool/* /index.html 200
+/tools/* /index.html 200
+/work/* /index.html 200
+/gallery /index.html 200
+/gallery/* /index.html 200
+/* /index.html 200
